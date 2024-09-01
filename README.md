@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## ⚠️ Disclaimer
+As a beginner in 3D web development, I want to be transparent about the current state of this project:
 
-## Getting Started
+The site may experience significant lag and performance issues.
+3D rendering and interactions might not be optimized, leading to a potentially choppy user experience.
+Load times may be longer than ideal, especially on less powerful devices.
 
-First, run the development server:
+I sincerely apologize for any inconvenience this may cause. Please understand that this project is a learning experience for me, and I am actively working on improving its performance and efficiency.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project is a Next.js, React, and Three.js application designed to showcase luxury cars in a 3D environment. It's primarily a frontend project aimed at honing skills in 3D web development and creating a fancy user experience.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Project Goals
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Implement a 3D interface for displaying luxury cars using Three.js
+- Create an interactive and visually appealing user experience
+- Improve proficiency in Next.js, React, and Three.js
+- Lay the groundwork for a future auction system
 
-## Learn More
+### Current Status
 
-To learn more about Next.js, take a look at the following resources:
+The project is currently focused on the frontend implementation. Key features include:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 3D rendering of luxury car models
+- Interactive car viewing and rotation
+- Responsive design for various screen sizes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Future Plans
 
-## Deploy on Vercel
+Once the frontend interface is completed, the project will expand to include:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Backend development for user authentication and data management
+- Implementation of a timed auction system
+- Integration of Bitcoin payment processing for bids
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Long-term Objective
+
+The ultimate goal of this project is to create a platform where users can:
+
+- View luxury cars in a detailed 3D environment
+- Place bids using Bitcoin
+- Participate in time-limited auctions for these high-end vehicles
+
+### Technologies Used
+
+- Next.js
+- React
+- Three.js
+- TypeScript
+- Tailwind CSS
+- Shadcn
+
+
+Note: This project is a work in progress and features may change as development continues.
