@@ -1,6 +1,6 @@
 import CarScene from "@/components/store/car-scene";
 
-const Store = () => {
+const StorePage = () => {
     return (
         <section className="w-full h-full">
             <CarScene />
@@ -8,4 +8,4 @@ const Store = () => {
     );
 };
 
-export default Store;
+export default StorePage;

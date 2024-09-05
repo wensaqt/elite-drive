@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 
 import { z } from "zod";
 
-const Login = () => {
+const LoginPage = () => {
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
@@ -69,4 +69,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginPage;
