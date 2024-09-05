@@ -1,41 +1,31 @@
 import React, { useRef } from "react";
 import { CarType } from "@/app/common/types/car.type";
 import { useGLTF, Text } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useFrame } from "@react-three/fiber";
 
 interface CarModelProps {
     car: CarType;
-    position: THREE.Vector3;
-    rotation: THREE.Euler;
     highlight: boolean;
 }
-
 const CarModel: React.FC<CarModelProps> = (props: CarModelProps) => {
     const { scene } = useGLTF(props.car.modelUrl);
     const modelRef = useRef<THREE.Group>(null);
-    const { camera } = useThree();
-
     const textRef = useRef(null);
 
-    useFrame((state, delta) => {
-        if (props.highlight && modelRef.current) {
-            props.rotation.y += delta * 0.5;
-            modelRef.current.rotation.y = props.rotation.y;
-        }
-
-        if (modelRef.current && textRef.current) {
-            textRef.current.lookAt(camera.position);
+    // will replace this with useSpring when i'll finally understand the lib
+    useFrame(() => {
+        if (props.highlight && scene) {
+            scene.rotation.y += 0.01;
         }
     });
 
     return (
-        <group
-            ref={modelRef}
-            position={props.position}
-            rotation={props.rotation}
-        >
-            <primitive object={scene} className="cursor-pointer" />
+        <group ref={modelRef}>
+            <primitive
+                object={scene}
+                rotation={new THREE.Euler(0, Math.PI / 2, 0)}
+            />
 
             {props.highlight && (
                 <group ref={textRef}>

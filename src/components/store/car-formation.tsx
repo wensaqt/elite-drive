@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Html } from "@react-three/drei";
 import CarModel from "./car-model";
 import useCars from "./useCars";
 import { Button } from "../ui/button";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { useFrame } from "@react-three/fiber";
+import { useSpring, animated } from "@react-spring/three";
 
 interface CarFormationProps {}
 
@@ -13,8 +13,6 @@ const CarFormation: React.FC<CarFormationProps> = () => {
     const groupRef = useRef<THREE.Group>(null);
     const { cars } = useCars();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const targetPositionRef = useRef(0);
-
     const spacing = 8;
 
     const goToPrevious = () => {
@@ -29,28 +27,38 @@ const CarFormation: React.FC<CarFormationProps> = () => {
         );
     };
 
-    useFrame(() => {
-        if (groupRef.current) {
-            const targetPosition = -currentIndex * spacing;
-            targetPositionRef.current +=
-                (targetPosition - targetPositionRef.current) * 0.05;
-            groupRef.current.position.x = targetPositionRef.current;
-        }
-    });
+    const [spring, api] = useSpring(() => ({
+        formationSlide: 0,
+        config: {
+            mass: 5,
+            tension: 200,
+            friction: 150,
+            duration: 300,
+        },
+    }));
+
+    useEffect(() => {
+        api.start({
+            formationSlide: -currentIndex * spacing,
+        });
+    }, [currentIndex, spacing, api]);
 
     return (
         <>
-            <group ref={groupRef} position={[currentIndex * -spacing, 0, 0]}>
+            <animated.group ref={groupRef} position-x={spring.formationSlide}>
                 {cars.map((car, index) => (
-                    <CarModel
+                    // wrap in group to avoid error 'Type instantiation is excessively deep and possibly infinite.'
+                    <animated.group
                         key={car.id}
-                        car={car}
                         position={new THREE.Vector3(index * spacing, 0, 0)}
-                        rotation={new THREE.Euler(0, Math.PI / 2, 0)}
-                        highlight={index === currentIndex}
-                    />
+                    >
+                        <CarModel
+                            car={car}
+                            highlight={index === currentIndex}
+                        />
+                    </animated.group>
                 ))}
-            </group>
+            </animated.group>
             <Html fullscreen>
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4">
                     <Button

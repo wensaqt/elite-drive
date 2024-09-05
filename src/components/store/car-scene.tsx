@@ -2,7 +2,7 @@
 
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import CameraHelper from "./helpers/camera-helper";
+// import CameraHelper from "./helpers/camera-helper";
 import CarFormation from "./car-formation";
 
 const CarScene: React.FC = () => {
@@ -12,7 +12,7 @@ const CarScene: React.FC = () => {
                 className="h-full w-full"
                 camera={{ position: [0, 0, 50], fov: 10 }}
             >
-                <CameraHelper />
+                {/* <CameraHelper /> */}
                 <directionalLight intensity={5} />
                 <color attach="background" args={["#1a1a1a"]} />
 
