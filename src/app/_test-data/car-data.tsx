@@ -3,16 +3,16 @@
 import { CarType } from "../common/types/car.type";
 
 export const cars: CarType[] = [
-    {
-        id: 1,
-        model: "Audi R8",
-        manufacturingYear: 2023,
-        mileage: 1000,
-        price: 3.2,
-        acceleration: 3.2,
-        dealer: "Audi Sport Center",
-        modelUrl: "models/audi_r8.glb",
-    },
+    // {
+    //     id: 1,
+    //     model: "Audi R8",
+    //     manufacturingYear: 2023,
+    //     mileage: 1000,
+    //     price: 3.2,
+    //     acceleration: 3.2,
+    //     dealer: "Audi Sport Center",
+    //     modelUrl: "models/audi_r8.glb",
+    // },
     // {
     //     id: 2,
     //     model: "BMW M4",
