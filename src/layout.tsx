@@ -1,6 +1,5 @@
 import "./style/globals.css";
 
-import Header from "@/components/base/header";
 import "@style/globals.css";
 
 export default function RootLayout({

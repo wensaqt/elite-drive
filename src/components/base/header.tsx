@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 const Header = () => {
     return (
-        <header className="flex w-full justify-between p-4 fixed z-50">
+        <header className="flex w-full justify-between p-4 z-50 fixed bg-black bg-opacity-30">
             <div>placeholder</div>
 
             <div>
