@@ -9,4 +9,5 @@ export type CarType = {
     imageUrl: string;
     modelUrl: string;
     photoUrls: string[];
+    description: string;
 };

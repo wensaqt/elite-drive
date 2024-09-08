@@ -8,9 +8,9 @@ export default function MainLayout({
 }>) {
     return (
         <html lang="en">
-            <body className="flex flex-col w-screen h-screen bg-zinc-950">
+            <body className="h-screen w-screen bg-zinc-950">
                 <Header />
-                <main className="h-full w-full">{children}</main>
+                <main className="flex-grow">{children}</main>
             </body>
         </html>
     );

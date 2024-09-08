@@ -1,5 +1,4 @@
 import { useHelper } from "@react-three/drei";
-
 import { useRef } from "react";
 import { DirectionalLight, DirectionalLightHelper } from "three";
 

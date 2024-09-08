@@ -1,10 +1,8 @@
 import { TypographyProps } from "./typography.types";
 
-interface TypographyBlockquoteProps extends TypographyProps {}
-
-const TypographyBlockquote: React.FC<TypographyBlockquoteProps> = (props) => {
+const TypographyBlockquote: React.FC<TypographyProps> = (props) => {
     return (
-        <blockquote className="mt-6 border-l-2 pl-6 italic">
+        <blockquote className="mt-6 border-l-2 pl-6 italic text-white text-justify">
             {props.text}
         </blockquote>
     );
