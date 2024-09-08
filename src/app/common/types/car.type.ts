@@ -6,5 +6,8 @@ export type CarType = {
     price: number;
     acceleration: number;
     dealer: string;
+    imageUrl: string;
     modelUrl: string;
+    photoUrls: string[];
+    description: string;
 };
