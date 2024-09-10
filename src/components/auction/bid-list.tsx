@@ -2,6 +2,10 @@ import React from "react";
 import { BitcoinIcon } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import TypographyH3 from "../typography/h3";
+import { TypographyLead } from "../typography/lead";
+import TypographyMuted from "../typography/muted";
+import Divider from "../ui/divider";
+import TypographyLarge from "../typography/large";
 
 interface Bidder {
     username: string;
@@ -49,34 +53,38 @@ const BidList: React.FC = () => {
     );
 
     return (
-        <div className="text-foreground p-6 rounded-lg shadow-lg w-2/3">
+        <div className="text-foreground p-6 rounded-lg shadow-lg w-full lg:w-2/3">
             <TypographyH3 text="Bidders on this car" />
             <div className="grid gap-4 mt-6">
                 {mockedBidders.map((bidder, index) => (
-                    <div
-                        key={index}
-                        className="flex items-center gap-4 bg-muted p-4 rounded-md"
-                    >
-                        <Avatar className="w-10 h-10 border-2 border-primary">
-                            <AvatarImage
-                                src="/placeholder-user.jpg"
-                                alt={bidder.username}
-                            />
-                            <AvatarFallback>
-                                {bidder.username.slice(1, 3).toUpperCase()}
-                            </AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 grid gap-1">
-                            <div className="flex items-center justify-between">
-                                <div className="font-medium">
-                                    {bidder.username}
+                    <div key={index}>
+                        {/* Contenu de chaque bidder */}
+                        <div className="flex items-center gap-4 rounded-md">
+                            <Avatar className="w-10 h-10 border-2 border-primary">
+                                <AvatarImage
+                                    src="/placeholder-user.jpg"
+                                    alt={bidder.username}
+                                />
+                                <AvatarFallback>
+                                    {bidder.username.slice(1, 3).toUpperCase()}
+                                </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1 grid gap-1">
+                                <div className="flex items-center justify-between">
+                                    <TypographyLead text={bidder.username} />
+                                    <TypographyLarge
+                                        text={String(bidder.amount)}
+                                        icon={<BitcoinIcon color="white" />}
+                                        iconSize={16}
+                                    />
                                 </div>
-                                <div className="text-primary font-semibold"></div>
-                            </div>
-                            <div className="text-muted-foreground text-sm">
-                                {bidder.message}
+                                <TypographyMuted text={`"${bidder.message}"`} />
                             </div>
                         </div>
+
+                        {index < mockedBidders.length - 1 && (
+                            <Divider opacity="half" />
+                        )}
                     </div>
                 ))}
             </div>

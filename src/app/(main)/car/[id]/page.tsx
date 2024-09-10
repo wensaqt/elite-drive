@@ -90,7 +90,7 @@ const CarDetailsPage = ({ params }: { params: { id: string } }) => {
                         icon={<Factory />}
                     />
                 </div>
-                <div className="w-8/12">
+                <div className="xl:w-10/12 w-full">
                     <CarPhotoGallery
                         urls={car!.photoUrls}
                         videoUrl={car!.videoUrl}
@@ -98,9 +98,7 @@ const CarDetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
             </div>
 
-            <div className="1/12">
-                <BigButton text="MAKE A BID" />
-            </div>
+            <BigButton text="MAKE A BID" />
 
             <BidList />
         </div>

@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { Card } from "../ui/card";
 import PhotoVisualizer from "../base/photo-visualizer";
 
 const CarPhotoGallery = ({
@@ -22,11 +21,10 @@ const CarPhotoGallery = ({
     };
 
     return (
-        <div className="grid grid-cols-4 grid-rows-2 gap-4 h-full w-full">
-            <div className="col-span-2 row-span-2">
+        <div className="grid lg:grid-cols-4 lg:grid-rows-2 gap-4 h-96 w-full grid-cols-3 grid-rows-2">
+            <div className="lg:col-span-2 lg:row-span-2 col-span-3 row-span-1">
                 <video
-                    className="w-full h-full object-cover rounded-sm overflow-hidden hover:brightness-125 cursor-pointer"
-                    controls
+                    className="w-full h-full object-cover rounded-sm overflow-hidden"
                     src={videoUrl}
                     autoPlay
                     loop
@@ -34,7 +32,7 @@ const CarPhotoGallery = ({
                 />
             </div>
 
-            <div className="col-span-2 col-start-3">
+            <div className="lg:col-span-2 lg:col-start-3 col-span-1 col-start-1">
                 <div
                     className="relative w-full h-full rounded-sm overflow-hidden hover:brightness-125 cursor-pointer"
                     onClick={() => openPhotoVisualizer(urls[0])}
@@ -48,7 +46,7 @@ const CarPhotoGallery = ({
                 </div>
             </div>
 
-            <div className="col-start-3 row-start-2">
+            <div className="lg:col-start-3 lg:row-start-2 col-span-1 col-start-2">
                 <div
                     className="relative w-full h-full rounded-sm overflow-hidden hover:brightness-125 cursor-pointer"
                     onClick={() => openPhotoVisualizer(urls[1])}
@@ -62,7 +60,7 @@ const CarPhotoGallery = ({
                 </div>
             </div>
 
-            <div className="col-start-4 row-start-2">
+            <div className="lg:col-start-4 lg:row-start-2 col-span-1 col-start-3">
                 <div
                     className="relative w-full h-full rounded-sm overflow-hidden hover:brightness-125 cursor-pointer"
                     onClick={() => openPhotoVisualizer(urls[2])}
