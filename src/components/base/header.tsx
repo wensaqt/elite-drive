@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const Header = () => {
     return (
-        <header className="flex w-full justify-between p-4 z-50 bg-black bg-opacity-80 fixed">
+        <header className="flex w-full justify-between p-4 z-50 bg-black bg-opacity-80">
             <Link href={"/"}>
                 <Image
                     src={"/logo_elite_drive.png"}

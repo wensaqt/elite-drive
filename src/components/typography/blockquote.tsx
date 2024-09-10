@@ -2,7 +2,7 @@ import { TypographyProps } from "./typography.types";
 
 const TypographyBlockquote: React.FC<TypographyProps> = (props) => {
     return (
-        <blockquote className="mt-6 border-l-2 pl-6 italic text-white text-justify">
+        <blockquote className="border-l-2 pl-6 italic text-white text-justify">
             {props.text}
         </blockquote>
     );

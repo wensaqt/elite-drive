@@ -12,7 +12,7 @@ const Car3DModel = ({ modelUrl }: Car3DModelProps) => {
 
     return (
         <Canvas
-            className="w-full h-full bg-zinc-900 border border-white rounded-sm"
+            className="w-full h-full"
             camera={{
                 fov: 50,
                 position: [3, 2, 5],
