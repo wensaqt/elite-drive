@@ -1,11 +1,7 @@
 import React from "react";
 import { BitcoinIcon } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import Divider from "../ui/divider";
-import TypographyLarge from "../typography/large";
-import { TypographyLead } from "../typography/lead";
-import { Button } from "../ui/button";
-import { TypographyH2 } from "../typography/h2";
+import TypographyH3 from "../typography/h3";
 
 interface Bidder {
     username: string;
@@ -53,64 +49,38 @@ const BidList: React.FC = () => {
     );
 
     return (
-        <section className="px-4 py-6 md:px-6 md:py-12">
-            <div className="mx-auto max-w-4xl">
-                <div className="mb-6 grid gap-2">
-                    <TypographyH2 text="All bidders" />
-
-                    <p className="text-muted-foreground"></p>
-                </div>
-                <ul className="grid">
-                    {sortedBidders.map((bidder, index) => (
-                        <React.Fragment key={bidder.username}>
-                            <li className="grid gap-2 rounded-lg">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <Avatar className="h-8 w-8 border">
-                                            <AvatarImage
-                                                src="/placeholder-user.jpg"
-                                                alt={bidder.username}
-                                            />
-                                            <AvatarFallback>
-                                                {bidder.username
-                                                    .slice(1, 3)
-                                                    .toUpperCase()}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                        <div className="grid gap-0.5">
-                                            <TypographyLead
-                                                text={bidder.username}
-                                            />
-                                            <p className="text-xs text-muted-foreground">
-                                                {bidder.date}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <TypographyLarge
-                                        text={`${bidder.amount} BTC`}
-                                        icon={<BitcoinIcon />}
-                                        iconSize={18}
-                                    />
+        <div className="text-foreground p-6 rounded-lg shadow-lg w-2/3">
+            <TypographyH3 text="Bidders on this car" />
+            <div className="grid gap-4 mt-6">
+                {mockedBidders.map((bidder, index) => (
+                    <div
+                        key={index}
+                        className="flex items-center gap-4 bg-muted p-4 rounded-md"
+                    >
+                        <Avatar className="w-10 h-10 border-2 border-primary">
+                            <AvatarImage
+                                src="/placeholder-user.jpg"
+                                alt={bidder.username}
+                            />
+                            <AvatarFallback>
+                                {bidder.username.slice(1, 3).toUpperCase()}
+                            </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 grid gap-1">
+                            <div className="flex items-center justify-between">
+                                <div className="font-medium">
+                                    {bidder.username}
                                 </div>
-                                <p className="text-sm text-muted-foreground">
-                                    {`"${bidder.message}"`}
-                                </p>
-                            </li>
-                            {index < sortedBidders.length - 1 && (
-                                <Divider
-                                    fading="none"
-                                    opacity="low"
-                                    weight="light"
-                                />
-                            )}
-                        </React.Fragment>
-                    ))}
-                </ul>
-                <div className="mt-8 flex justify-center">
-                    <Button variant="outline">See more...</Button>
-                </div>
+                                <div className="text-primary font-semibold"></div>
+                            </div>
+                            <div className="text-muted-foreground text-sm">
+                                {bidder.message}
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
-        </section>
+        </div>
     );
 };
 

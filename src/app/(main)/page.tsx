@@ -7,8 +7,8 @@ import ScrollIndicator from "@/components/base/scroll-indicator";
 
 const StorePage = () => {
     return (
-        <section className="h-screen overflow-y-auto snap-y snap-mandatory">
-            <div className="snap-start w-full h-screen relative">
+        <div className="overflow-y-auto h-full snap-y snap-mandatory">
+            <section className="h-full snap-start w-full relative">
                 <video
                     autoPlay
                     loop
@@ -22,17 +22,17 @@ const StorePage = () => {
                     Your browser does not support the video tag.
                 </video>
                 <ScrollIndicator />
-            </div>
+            </section>
 
-            <div className="snap-start w-full h-screen flex flex-col items-center justify-center">
+            <section className="snap-start w-full h-full flex flex-col items-center justify-center">
                 <TypographyH2 text="We have brand new engines for you" />
                 <Divider />
                 <div className="overflow-y-auto">
                     <CarFormation />
                 </div>
                 <Divider />
-            </div>
-        </section>
+            </section>
+        </div>
     );
 };
 
