@@ -1,5 +1,5 @@
 "use client";
-import { loginSchema } from "@/app/schemas/auth-schema";
+import { loginSchema } from "@/app/common/schemas/auth-schema";
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -13,20 +13,27 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
+import { initialLoginFormState, loginDefaultValues } from "./login.config";
+import { onSubmitAction } from "./login-action";
 import { z } from "zod";
 
 const LoginPage = () => {
-    const form = useForm<z.infer<typeof loginSchema>>({
+    const [loginFormState, loginFormAction] = useFormState(
+        onSubmitAction,
+        initialLoginFormState
+    );
+
+    const form = useForm<z.output<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
-        defaultValues: {
-            email: "",
-            password: "",
-        },
+        defaultValues: loginDefaultValues,
     });
 
-    const submitLogin = () => {
-        console.log("coucou");
+    const onSubmitLogin = async (data: z.output<typeof loginSchema>) => {
+        const formData = new FormData();
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+        await onSubmitAction(formData);
     };
 
     return (
@@ -43,7 +50,8 @@ const LoginPage = () => {
                         <div className="grid gap-2">
                             <Form {...form}>
                                 <form
-                                    onSubmit={form.handleSubmit(submitLogin)}
+                                    action={onSubmitAction}
+                                    onSubmit={form.handleSubmit(onSubmitLogin)}
                                     className="space-y-8 w-96"
                                 >
                                     <FormField
@@ -80,12 +88,9 @@ const LoginPage = () => {
                                             </FormItem>
                                         )}
                                     />
-                                    <Button>Log in</Button>
+                                    <Button type="submit">Log in</Button>
                                 </form>
                             </Form>
-                            <Button variant="outline" className="w-full">
-                                Login with Google
-                            </Button>
                         </div>
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{" "}

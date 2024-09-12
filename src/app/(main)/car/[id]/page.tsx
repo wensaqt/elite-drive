@@ -8,8 +8,6 @@ import CarPhotoGallery from "@/components/cars/car-photo-gallery";
 import { TypographyLead } from "@/components/typography/lead";
 import BigButton from "@/components/ui/big-button";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import TypographyH3 from "@/components/typography/h3";
 import BidList from "@/components/auction/bid-list";
 
 type Bidder = {
