@@ -1,39 +1,23 @@
 "use server";
+import { login } from "@/data-access-layers/user.dal";
 import { loginSchema } from "@/app/common/schemas/auth-schema";
+import { LoginFormState } from "./login.interface";
 
-interface ValidationResult {
-    message?: string;
-    fields?: Record<string, string>;
-    issues?: string[];
-}
-
-export async function onSubmitAction(
-    // adding prevState to avoid type error on useFormState call
-    prevState: ValidationResult,
+export async function onLoginAction(
+    state: LoginFormState,
     data: FormData
-): Promise<ValidationResult> {
-    const objectData = Object.fromEntries(data);
-    const parsed = loginSchema.safeParse(objectData);
+): Promise<LoginFormState> {
+    const userEntries = Object.fromEntries(data);
+    const parsedValidation = loginSchema.safeParse(userEntries);
 
-    if (!parsed.success) {
-        const fields: Record<string, string> = {};
-        for (const key of Object.keys(objectData)) {
-            fields[key] = objectData[key].toString();
-        }
-        return {
-            message: "Invalid form data.",
-            fields,
-            issues: parsed.error.issues.map((issue) => issue.message),
-        };
-    }
-    if (parsed.data.email.includes("a")) {
-        return {
-            message: "Invalid email.",
-        };
+    if (!parsedValidation.success) {
+        state.fields = userEntries;
+        state.errors = parsedValidation.error.flatten().fieldErrors;
+        return state;
     }
 
-    // should try login here instead of returning message
-    return {
-        message: "User logged!",
-    };
+    const { email, password } = parsedValidation.data;
+
+    login(email, password);
+    return state;
 }

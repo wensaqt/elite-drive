@@ -14,26 +14,24 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { onSubmitAction } from "./login.action";
+import { onLoginAction } from "./login.action";
 import { z } from "zod";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useFormState } from "react-dom";
 
 const LoginPage = () => {
     const formRef = useRef<HTMLFormElement>(null);
-    const [state, formAction] = useFormState(onSubmitAction, { message: "" });
-
-    useEffect(() => {
-        console.log(state);
-    }, [state]);
+    const [state, formAction, pending] = useFormState(onLoginAction, {
+        fields: {
+            email: "",
+            password: "",
+        },
+        errors: {},
+    });
 
     const form = useForm<z.output<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
-        defaultValues: {
-            email: "",
-            password: "",
-            ...(state.fields ?? {}),
-        },
+        defaultValues: state!.fields,
     });
 
     return (
@@ -49,20 +47,6 @@ const LoginPage = () => {
                     <div className="grid gap-4">
                         <div className="grid gap-2">
                             <Form {...form}>
-                                {state.message !== "" && !state.issues && (
-                                    <div className="text-red-600">
-                                        {state.message}
-                                    </div>
-                                )}
-                                {state.issues && (
-                                    <ul>
-                                        {state.issues.map((issue) => (
-                                            <li className="text-red-600">
-                                                {issue}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
                                 <form
                                     action={formAction}
                                     onSubmit={form.handleSubmit(() =>
@@ -84,10 +68,17 @@ const LoginPage = () => {
                                                     />
                                                 </FormControl>
                                                 <FormDescription />
-                                                <FormMessage />
+                                                {state?.errors?.email ? (
+                                                    <FormMessage>
+                                                        {state.errors.email}
+                                                    </FormMessage>
+                                                ) : (
+                                                    <FormMessage />
+                                                )}
                                             </FormItem>
                                         )}
                                     />
+
                                     <FormField
                                         control={form.control}
                                         name="password"
@@ -101,11 +92,20 @@ const LoginPage = () => {
                                                     />
                                                 </FormControl>
                                                 <FormDescription />
-                                                <FormMessage />
+                                                {state?.errors?.password ? (
+                                                    <FormMessage>
+                                                        {state.errors.password}
+                                                    </FormMessage>
+                                                ) : (
+                                                    <FormMessage />
+                                                )}
                                             </FormItem>
                                         )}
                                     />
-                                    <Button type="submit">Log in</Button>
+
+                                    <Button disabled={pending} type="submit">
+                                        {pending ? "Submitting..." : "Log in"}
+                                    </Button>
                                 </form>
                             </Form>
                         </div>
