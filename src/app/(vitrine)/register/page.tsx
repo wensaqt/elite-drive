@@ -28,7 +28,6 @@ const RegisterPage = () => {
             password: "",
         },
         errors: {},
-        response: undefined,
     });
 
     const form = useForm<z.output<typeof registerSchema>>({

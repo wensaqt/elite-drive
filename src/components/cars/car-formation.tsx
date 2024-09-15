@@ -5,7 +5,7 @@ import React from "react";
 import TypographyH3 from "../typography/h3";
 import TypographyMuted from "../typography/muted";
 import Link from "next/link";
-import { cars } from "@/data/cars";
+import { cars } from "@/_test-data/cars";
 
 interface CarCardProps {
     car: CarType;

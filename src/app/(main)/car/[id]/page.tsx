@@ -1,5 +1,5 @@
 import { TypographyH1 } from "@/components/typography/h1";
-import { cars } from "@/data/cars";
+import { cars } from "@/_test-data/cars";
 import { ChevronsUp, CircleGauge, Factory, Gauge } from "lucide-react";
 import Divider from "@/components/ui/divider";
 

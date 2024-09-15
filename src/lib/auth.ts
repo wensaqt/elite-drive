@@ -1,6 +1,8 @@
+import "server-only";
+
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { redirect } from "next/navigation";
 
 const key = new TextEncoder().encode(process.env.AUTH_SECRET);
 
@@ -15,7 +17,7 @@ const cookie = {
     duration: 10 * 1000,
 };
 
-export async function encrypt(payload: any) {
+async function encrypt(payload: any) {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
@@ -23,9 +25,9 @@ export async function encrypt(payload: any) {
         .sign(key);
 }
 
-export async function decrypt(token: string): Promise<any> {
+async function decrypt(token: string): Promise<any> {
     const { payload } = await jwtVerify(token, key, {
-        algorithms: ["HS2256"],
+        algorithms: ["HS256"],
     });
     return payload;
 }
@@ -36,8 +38,26 @@ export async function createSession(userId: string) {
 
     cookies().set(cookie.name, session, { ...cookie.options, expires });
 
-    return NextResponse.json({
-        message: "Session successfully created.",
-        success: true,
-    });
+    return cookies().get("session");
+}
+
+export async function verifySession() {
+    const sessionCookie = cookies().get(cookie.name)?.value;
+    const session = await decrypt(sessionCookie!);
+    console.log("session decrypted: ", session);
+    if (!session.userId) {
+        redirect("/login");
+    }
+
+    return { userId: session.userId as string };
+}
+
+export async function deleteSession() {
+    console.log("cookie name:", cookie.name);
+    cookies().delete(cookie.name);
+    redirect("/login");
+}
+
+export async function logout() {
+    deleteSession();
 }

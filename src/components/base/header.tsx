@@ -1,7 +1,8 @@
-import { UserIcon } from "lucide-react";
+import { LogOutIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import LogoutButton from "../buttons/log-out-button/log-out-button";
 
 const Header = () => {
     return (
@@ -21,6 +22,7 @@ const Header = () => {
                         <UserIcon color="#f4f4f5" />
                     </Link>
                 </Button>
+                <LogoutButton />
             </div>
         </header>
     );
