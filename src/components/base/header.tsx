@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import LogoutButton from "../buttons/log-out-button/log-out-button";
-import { verifySession } from "@/lib/auth";
+import { verifySession } from "@/lib/session";
 import IconButton from "../buttons/icon-button/icon-button";
 
 const Header = async () => {

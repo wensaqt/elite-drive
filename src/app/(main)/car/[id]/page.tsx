@@ -9,7 +9,7 @@ import { TypographyLead } from "@/components/typography/lead";
 import BigButton from "@/components/ui/big-button";
 
 import BidList from "@/components/auction/bid-list";
-import { verifySession } from "@/lib/auth";
+import { verifySession } from "@/lib/session";
 import { ButtonLink } from "@/components/buttons/link-button/link-button";
 
 type Bidder = {
