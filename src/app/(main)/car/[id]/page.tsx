@@ -9,6 +9,8 @@ import { TypographyLead } from "@/components/typography/lead";
 import BigButton from "@/components/ui/big-button";
 
 import BidList from "@/components/auction/bid-list";
+import { verifySession } from "@/lib/auth";
+import { ButtonLink } from "@/components/buttons/link-button/link-button";
 
 type Bidder = {
     username: string;
@@ -50,10 +52,13 @@ const mockedBidders: Bidder[] = [
     },
 ];
 
-const CarDetailsPage = ({ params }: { params: { id: string } }) => {
+const CarDetailsPage = async ({ params }: { params: { id: string } }) => {
+    const session = await verifySession();
     function getCarById(id: string) {
         return cars.find((car) => car.id.toString() === id);
     }
+
+    console.log(session);
 
     const car = getCarById(params.id);
 
@@ -96,7 +101,18 @@ const CarDetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
             </div>
 
-            <BigButton text="MAKE A BID" />
+            <div className="flex flex-col w-52">
+                <BigButton
+                    text="PLACE A BID"
+                    disabled={session ? false : true}
+                />
+                {session ? null : (
+                    <ButtonLink
+                        text={"You need to be logged in to place a bid."}
+                        href="/login"
+                    />
+                )}
+            </div>
 
             <BidList />
         </div>

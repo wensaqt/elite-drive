@@ -2,10 +2,9 @@
 
 import { registerSchema } from "@/app/common/schemas/auth-schema";
 import { RegisterFormState } from "./register.interface";
+
+import { register } from "@/_dal/auth.dal";
 import { redirect } from "next/navigation";
-import { NextResponse } from "next/server";
-import { prisma } from "prisma/prisma";
-import bcrypt from "bcrypt";
 
 export async function onRegisterAction(
     state: RegisterFormState,
@@ -21,33 +20,15 @@ export async function onRegisterAction(
     }
 
     const { username, email, password } = parsedValidation.data;
-    await register(username, email, password);
+    const response = await register(username, email, password);
 
-    return state;
-}
-
-export async function register(
-    username: string,
-    email: string,
-    password: string
-) {
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = await prisma.user.create({
-            data: {
-                username: username,
-                email: email,
-                password: hashedPassword,
-            },
-        });
-    } catch (error) {
-        //should patch this to throw errors properly but idk how
-        console.log("error: ", error);
-        return NextResponse.json({
-            message: "There was an error creating your account.",
-            success: false,
-        });
-    } finally {
+    if (response.ok) {
         redirect("/login");
     }
+    const body = await response.json();
+    return {
+        fields: userEntries,
+        errors: {},
+        message: body.message,
+    };
 }

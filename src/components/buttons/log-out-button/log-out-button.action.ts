@@ -1,6 +1,6 @@
 "use server";
-import { logout } from "@/lib/auth";
+import { deleteSession } from "@/lib/auth";
 
-export async function handleLogout() {
-    await logout();
+export async function logout() {
+    await deleteSession();
 }

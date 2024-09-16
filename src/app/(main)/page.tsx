@@ -2,7 +2,6 @@ import CarFormation from "@/components/cars/car-formation";
 import { TypographyH2 } from "@/components/typography/h2";
 import Divider from "@/components/ui/divider";
 import ScrollIndicator from "@/components/base/scroll-indicator";
-import { getUser } from "@/_dal/user.dal";
 
 const StorePage = () => {
     return (

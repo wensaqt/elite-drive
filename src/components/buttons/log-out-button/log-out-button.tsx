@@ -1,14 +1,12 @@
-// components/LogoutButton.tsx
 "use client";
 
 import { Button } from "../../ui/button";
 import { LogOut } from "lucide-react";
-
-import { handleLogout } from "./log-out-button.action";
+import { logout } from "./log-out-button.action";
 
 const LogoutButton = () => {
     return (
-        <Button variant="ghost" size="icon" onClick={handleLogout}>
+        <Button variant="ghost" size="icon" onClick={(e) => logout()}>
             <LogOut color="#f4f4f5" />
         </Button>
     );

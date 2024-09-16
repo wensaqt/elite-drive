@@ -28,6 +28,7 @@ const RegisterPage = () => {
             password: "",
         },
         errors: {},
+        message: null,
     });
 
     const form = useForm<z.output<typeof registerSchema>>({
@@ -42,6 +43,11 @@ const RegisterPage = () => {
                 <div className="mx-auto grid w-[350px] gap-6">
                     <div className="grid gap-2 text-center">
                         <h1 className="text-3xl font-bold">Register</h1>
+                        {state.message && (
+                            <p className="text-red-600 font-semibold">
+                                {state.message}
+                            </p>
+                        )}
                         <p className="text-balance text-muted-foreground">
                             Enter your username, email and password to create
                             your account

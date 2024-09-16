@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { FieldValues } from "react-hook-form";
 
 export interface RegisterFormState {
@@ -8,4 +7,5 @@ export interface RegisterFormState {
         email?: string[] | undefined;
         password?: string[] | undefined;
     };
+    message: string | null;
 }

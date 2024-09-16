@@ -14,7 +14,7 @@ const cookie = {
         sameSite: "lax" as const,
         path: "/",
     },
-    duration: 10 * 1000,
+    duration: 600 * 1000,
 };
 
 async function encrypt(payload: any) {
@@ -29,6 +29,7 @@ async function decrypt(token: string): Promise<any> {
     const { payload } = await jwtVerify(token, key, {
         algorithms: ["HS256"],
     });
+
     return payload;
 }
 
@@ -41,23 +42,22 @@ export async function createSession(userId: string) {
     return cookies().get("session");
 }
 
-export async function verifySession() {
-    const sessionCookie = cookies().get(cookie.name)?.value;
-    const session = await decrypt(sessionCookie!);
-    console.log("session decrypted: ", session);
-    if (!session.userId) {
-        redirect("/login");
-    }
-
-    return { userId: session.userId as string };
+export async function verifySession(): Promise<boolean> {
+    const session = await decrypt(
+        cookies().get(cookie.name)?.value ?? ""
+    ).catch(() => null);
+    return !!session?.userId;
 }
 
 export async function deleteSession() {
-    console.log("cookie name:", cookie.name);
     cookies().delete(cookie.name);
     redirect("/login");
 }
 
-export async function logout() {
-    deleteSession();
+export async function getSession() {
+    const isAuthenticated = await verifySession();
+    if (isAuthenticated) {
+        const session = cookies().get(cookie.name);
+        return session;
+    }
 }

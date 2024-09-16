@@ -1,10 +1,13 @@
-import { LogOutIcon, UserIcon } from "lucide-react";
+import { LogInIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import LogoutButton from "../buttons/log-out-button/log-out-button";
+import { verifySession } from "@/lib/auth";
+import IconButton from "../buttons/icon-button/icon-button";
 
-const Header = () => {
+const Header = async () => {
+    const session = await verifySession();
     return (
         <header className="flex w-full justify-between p-4 z-50 bg-black bg-opacity-80">
             <Link href={"/"}>
@@ -16,14 +19,22 @@ const Header = () => {
                 />
             </Link>
 
-            <div>
-                <Button variant="ghost" size="icon" asChild>
-                    <Link href="/account/profile">
-                        <UserIcon color="#f4f4f5" />
-                    </Link>
-                </Button>
-                <LogoutButton />
-            </div>
+            {session ? (
+                <div>
+                    <IconButton
+                        icon={<UserIcon color="white" />}
+                        href="/profile"
+                    />
+                    <LogoutButton />
+                </div>
+            ) : (
+                <div>
+                    <IconButton
+                        icon={<LogInIcon color="white" />}
+                        href="/login"
+                    />
+                </div>
+            )}
         </header>
     );
 };

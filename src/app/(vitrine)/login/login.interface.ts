@@ -6,6 +6,5 @@ export interface LoginFormState {
         email?: string[] | undefined;
         password?: string[] | undefined;
     };
-
     message: string | null;
 }
