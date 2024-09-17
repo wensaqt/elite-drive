@@ -4,7 +4,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const key = new TextEncoder().encode(process.env.AUTH_SECRET);
+const KEY = new TextEncoder().encode(process.env.AUTH_SECRET);
 
 const cookie = {
     name: "session",
@@ -21,12 +21,12 @@ async function encrypt(payload: any) {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
-        .setExpirationTime("10 sec from now")
-        .sign(key);
+        .setExpirationTime("10m")
+        .sign(KEY);
 }
 
 async function decrypt(token: string): Promise<any> {
-    const { payload } = await jwtVerify(token, key, {
+    const { payload } = await jwtVerify(token, KEY, {
         algorithms: ["HS256"],
     });
 

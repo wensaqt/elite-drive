@@ -58,8 +58,6 @@ const CarDetailsPage = async ({ params }: { params: { id: string } }) => {
         return cars.find((car) => car.id.toString() === id);
     }
 
-    console.log(session);
-
     const car = getCarById(params.id);
 
     return (
