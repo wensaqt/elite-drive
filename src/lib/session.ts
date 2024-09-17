@@ -1,6 +1,6 @@
 import "server-only";
 
-import { SignJWT, jwtVerify } from "jose";
+import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -17,7 +17,7 @@ const cookie = {
     duration: 600 * 1000,
 };
 
-async function encrypt(payload: any) {
+async function encrypt(payload: JWTPayload) {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
@@ -25,7 +25,7 @@ async function encrypt(payload: any) {
         .sign(KEY);
 }
 
-async function decrypt(token: string): Promise<any> {
+async function decrypt(token: string): Promise<JWTPayload> {
     const { payload } = await jwtVerify(token, KEY, {
         algorithms: ["HS256"],
     });
@@ -56,8 +56,15 @@ export async function deleteSession() {
 
 export async function getSession() {
     const isAuthenticated = await verifySession();
-    if (isAuthenticated) {
-        const session = cookies().get(cookie.name);
-        return session;
+    if (!isAuthenticated) {
+        return null;
     }
+    const session = cookies().get(cookie.name);
+
+    if (!session) {
+        return null;
+    }
+
+    const decryptedSession = await decrypt(session.value);
+    return decryptedSession;
 }
