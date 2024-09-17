@@ -1,5 +1,5 @@
 "use client";
-import { loginSchema } from "@/app/schemas/auth-schema";
+import { loginSchema } from "@/app/common/schemas/auth-schema";
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -14,27 +14,38 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { onLoginAction } from "./login.action";
 import { z } from "zod";
+import { useRef } from "react";
+import { useFormState } from "react-dom";
 
 const LoginPage = () => {
-    const form = useForm<z.infer<typeof loginSchema>>({
-        resolver: zodResolver(loginSchema),
-        defaultValues: {
+    const formRef = useRef<HTMLFormElement>(null);
+    const [state, formAction, pending] = useFormState(onLoginAction, {
+        fields: {
             email: "",
             password: "",
         },
+        errors: {},
+        message: null,
     });
 
-    const submitLogin = () => {
-        console.log("coucou");
-    };
+    const form = useForm<z.output<typeof loginSchema>>({
+        resolver: zodResolver(loginSchema),
+        defaultValues: state!.fields,
+    });
 
     return (
-        <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+        <div className="w-full h-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
             <div className="flex items-center justify-center py-12">
                 <div className="mx-auto grid w-[350px] gap-6">
                     <div className="grid gap-2 text-center">
                         <h1 className="text-3xl font-bold">Login</h1>
+                        {state.message && (
+                            <p className="text-red-600 font-semibold">
+                                {state.message}
+                            </p>
+                        )}
                         <p className="text-balance text-muted-foreground">
                             Enter your email below to login to your account
                         </p>
@@ -43,8 +54,12 @@ const LoginPage = () => {
                         <div className="grid gap-2">
                             <Form {...form}>
                                 <form
-                                    onSubmit={form.handleSubmit(submitLogin)}
+                                    action={formAction}
+                                    onSubmit={form.handleSubmit(() =>
+                                        formRef.current?.submit()
+                                    )}
                                     className="space-y-8 w-96"
+                                    ref={formRef}
                                 >
                                     <FormField
                                         control={form.control}
@@ -59,10 +74,17 @@ const LoginPage = () => {
                                                     />
                                                 </FormControl>
                                                 <FormDescription />
-                                                <FormMessage />
+                                                {state?.errors?.email ? (
+                                                    <FormMessage>
+                                                        {state.errors.email}
+                                                    </FormMessage>
+                                                ) : (
+                                                    <FormMessage />
+                                                )}
                                             </FormItem>
                                         )}
                                     />
+
                                     <FormField
                                         control={form.control}
                                         name="password"
@@ -76,20 +98,26 @@ const LoginPage = () => {
                                                     />
                                                 </FormControl>
                                                 <FormDescription />
-                                                <FormMessage />
+                                                {state?.errors?.password ? (
+                                                    <FormMessage>
+                                                        {state.errors.password}
+                                                    </FormMessage>
+                                                ) : (
+                                                    <FormMessage />
+                                                )}
                                             </FormItem>
                                         )}
                                     />
-                                    <Button>Log in</Button>
+
+                                    <Button disabled={pending} type="submit">
+                                        {pending ? "Submitting..." : "Log in"}
+                                    </Button>
                                 </form>
                             </Form>
-                            <Button variant="outline" className="w-full">
-                                Login with Google
-                            </Button>
                         </div>
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{" "}
-                            <Link href="#" className="underline">
+                            <Link href="/register" className="underline">
                                 Sign up
                             </Link>
                         </div>

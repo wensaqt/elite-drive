@@ -1,5 +1,5 @@
 import { TypographyH1 } from "@/components/typography/h1";
-import { cars } from "@/data/cars";
+import { cars } from "@/_test-data/cars";
 import { ChevronsUp, CircleGauge, Factory, Gauge } from "lucide-react";
 import Divider from "@/components/ui/divider";
 
@@ -8,9 +8,9 @@ import CarPhotoGallery from "@/components/cars/car-photo-gallery";
 import { TypographyLead } from "@/components/typography/lead";
 import BigButton from "@/components/ui/big-button";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import TypographyH3 from "@/components/typography/h3";
 import BidList from "@/components/auction/bid-list";
+import { verifySession } from "@/lib/session";
+import { ButtonLink } from "@/components/buttons/link-button/link-button";
 
 type Bidder = {
     username: string;
@@ -52,7 +52,8 @@ const mockedBidders: Bidder[] = [
     },
 ];
 
-const CarDetailsPage = ({ params }: { params: { id: string } }) => {
+const CarDetailsPage = async ({ params }: { params: { id: string } }) => {
+    const session = await verifySession();
     function getCarById(id: string) {
         return cars.find((car) => car.id.toString() === id);
     }
@@ -98,7 +99,18 @@ const CarDetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
             </div>
 
-            <BigButton text="MAKE A BID" />
+            <div className="flex flex-col w-52">
+                <BigButton
+                    text="PLACE A BID"
+                    disabled={session ? false : true}
+                />
+                {session ? null : (
+                    <ButtonLink
+                        text={"You need to be logged in to place a bid."}
+                        href="/login"
+                    />
+                )}
+            </div>
 
             <BidList />
         </div>

@@ -8,7 +8,7 @@ export default function VitrineLayout({
     return (
         <html lang="en">
             <body>
-                <main>{children}</main>
+                <main className="h-screen w-screen">{children}</main>
             </body>
         </html>
     );

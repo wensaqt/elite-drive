@@ -1,5 +1,3 @@
-"use client";
-
 import CarFormation from "@/components/cars/car-formation";
 import { TypographyH2 } from "@/components/typography/h2";
 import Divider from "@/components/ui/divider";
