@@ -23,6 +23,6 @@
             "@style/*": ["style/*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/prisma/prisma.schema"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/prisma/prisma.schema", "src/components/cars/models/mc-laren.jsx"],
     "exclude": ["node_modules"]
 }
