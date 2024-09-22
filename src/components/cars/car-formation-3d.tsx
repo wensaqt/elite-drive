@@ -7,17 +7,17 @@ import { CarType } from "@/app/common/types/car.type"
 import { cars } from '@/_test-data/cars'
 import * as THREE from "three"
 
+
 import dynamic from 'next/dynamic'
 
 const CarFormation3DItem: React.FC<{ car: CarType, position: THREE.Vector3, rotation: THREE.Euler }> = ({ car, position, rotation }) => {
-  const CarModel = dynamic(() => import(`${car.componentPath}`).then((mod) => mod.default))
-
-  useEffect(() => {
-    console.log(CarModel)
-  }, [CarModel])
+  const CarModel = dynamic<{
+    position: THREE.Vector3
+    rotation: THREE.Euler
+  }>(() => import(`${car.componentPath}`).then((mod) => mod.default))
 
   return (
-    <Suspense fallback={<mesh><boxGeometry args={[1, 1, 1]} /><meshStandardMaterial color="gray" /></mesh>}>
+    <Suspense fallback={null}>
       <CarModel position={position} rotation={rotation} />
     </Suspense>
   )
