@@ -9,7 +9,7 @@ Title: 2010 BMW M3 GTS
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Bmw(props) {
+export default function Bmw(props) {
     const { nodes, materials } = useGLTF('/models/2010_bmw_m3_gts.glb')
     return (
       <group {...props} dispose={null}>

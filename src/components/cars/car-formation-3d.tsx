@@ -1,50 +1,32 @@
 "use client"
 
-import React from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { OrbitControls } from "@react-three/drei"
-import { Canvas, useThree } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import { CarType } from "@/app/common/types/car.type"
 import { cars } from '@/_test-data/cars'
 import * as THREE from "three"
 
-import { Bmw } from "./models/bmw"
-import { BugattiVeyron } from "./models/bugatti"
-import { Honda } from "./models/honda"
-
-// should change this trash import system because i want it to be dynamic not static but aaaaaaaa
-
-type CarComponentType = React.ComponentType<any>;
-
-const carComponents: Record<string, CarComponentType> = {
-  'bmw': Bmw,
-  'bugatti': BugattiVeyron,
-  'honda': Honda,
-}
-
-const DynamicCarModel: React.FC<{ componentName: string, position: THREE.Vector3, rotation: THREE.Euler }> = ({ componentName, position, rotation }) => {
-  const CarComponent = carComponents[componentName as keyof typeof carComponents]
-  if (!CarComponent) {
-    console.error(`No component found for ${componentName}`)
-    return null
-  }
-  return <CarComponent position={position} rotation={rotation} />
-}
+import dynamic from 'next/dynamic'
 
 const CarFormation3DItem: React.FC<{ car: CarType, position: THREE.Vector3, rotation: THREE.Euler }> = ({ car, position, rotation }) => {
+  const CarModel = dynamic(() => import(`${car.componentPath}`).then((mod) => mod.default))
 
-  const componentName = car.componentPath.split('/').pop()?.split('.')[0]
-  if (!componentName) {
-    console.error(`Invalid component path: ${car.componentPath}`)
-    return null
-  }
+  useEffect(() => {
+    console.log(CarModel)
+  }, [CarModel])
+
   return (
-    <DynamicCarModel componentName={componentName} position={position} rotation={rotation} />
+    <Suspense fallback={<mesh><boxGeometry args={[1, 1, 1]} /><meshStandardMaterial color="gray" /></mesh>}>
+      <CarModel position={position} rotation={rotation} />
+    </Suspense>
   )
 }
 
 const CarFormation3D: React.FC = () => {
   const totalCars = cars.length
   const radius = totalCars * 7
+  const deflection = 0.5
 
   const getAngle = (index: number) => {
     return (index / totalCars) * 2 * Math.PI
@@ -60,7 +42,7 @@ const CarFormation3D: React.FC = () => {
 
 
   const getCarRotation = (index: number) => {
-    const angle = getAngle(index)
+    const angle = getAngle(index) + deflection
     return new THREE.Euler(0, -angle - Math.PI / 2, 0)
 }
 
