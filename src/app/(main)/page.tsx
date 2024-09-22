@@ -30,7 +30,7 @@ const StorePage = () => {
             <section className="snap-start w-full h-full flex flex-col items-center justify-center">
                 <TypographyH2 text="We have brand new engines for you" />
                 <Divider />
-                <div className="overflow-y-auto h-1/2 w-full">
+                <div className="overflow-y-auto flex-grow w-full">
                 {formation3D ? <CarFormation3D />: <CarFormation/> }
  
                 </div>

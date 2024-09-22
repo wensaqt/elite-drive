@@ -1,8 +1,8 @@
 "use client"
 
-import React, { Suspense, useEffect } from 'react'
-import { OrbitControls } from "@react-three/drei"
-import { Canvas } from "@react-three/fiber"
+import React, { Suspense, useEffect, useRef } from 'react'
+import { Billboard, OrbitControls, Text } from "@react-three/drei"
+import { Canvas, useFrame } from "@react-three/fiber"
 import { CarType } from "@/app/common/types/car.type"
 import { cars } from '@/_test-data/cars'
 import * as THREE from "three"
@@ -10,15 +10,50 @@ import * as THREE from "three"
 
 import dynamic from 'next/dynamic'
 
-const CarFormation3DItem: React.FC<{ car: CarType, position: THREE.Vector3, rotation: THREE.Euler }> = ({ car, position, rotation }) => {
-  const CarModel = dynamic<{
-    position: THREE.Vector3
-    rotation: THREE.Euler
-  }>(() => import(`${car.componentPath}`).then((mod) => mod.default))
+const CarHeader: React.FC<({ car: CarType })> = ({ car })=> {
 
   return (
+    <Billboard
+    follow={true}
+    lockX={false}
+    lockY={false}
+    lockZ={false}
+  >
+    <Text 
+      fontSize={1}
+      fontWeight={"bold"}
+      color="white"
+      anchorY="bottom"
+      anchorX="center"
+      position={[0, 5, 0]}
+    >
+      {car.model}
+    </Text>
+    <Text 
+      fontSize={1}
+      fontWeight={"light"}
+      color="white"
+      anchorY="bottom"
+      anchorX="center"
+      position={[0, 3.8, 0]}
+    >
+      {car.dealer}
+    </Text>
+  </Billboard>
+  )
+}
+
+const CarFormation3DItem: React.FC<{ car: CarType, position: THREE.Vector3, rotation: THREE.Euler }> = ({ car, position, rotation }) => {
+  const CarModel = dynamic<{
+    rotation: THREE.Euler
+  }>(() => import(`${car.componentPath}`).then((mod) => mod.default))
+  
+  return (
     <Suspense fallback={null}>
-      <CarModel position={position} rotation={rotation} />
+      <group position={position}>
+      <CarHeader car={car} />
+      <CarModel rotation={rotation} />
+      </group>
     </Suspense>
   )
 }
@@ -50,7 +85,7 @@ const CarFormation3D: React.FC = () => {
     <Canvas
       className="w-full h-full"
       camera={{
-        fov: 20,
+        fov: 40,
         position: [0, 0, 50],
       }}
     >
