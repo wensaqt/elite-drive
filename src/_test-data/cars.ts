@@ -12,7 +12,6 @@ export const cars: CarType[] = [
         acceleration: 3.7,
         horsepower: 455,
         dealer: "Bugatti Automobiles S.A.S.",
-        componentPath: "src/components/cars/models/bugatti.jsx",
         imageUrl: "/images/corvette_c7.png",
         videoUrl: "/videos/corvette_c7.mp4",
         photoUrls: [
@@ -31,8 +30,7 @@ export const cars: CarType[] = [
         price: 1.5,
         acceleration: 3.7,
         horsepower: 455,
-        dealer: "Bayerische Motoren Werke AG",
-        componentPath: "src/components/cars/models/bmw.jsx",
+        dealer: "Bayerische Mtoren Werke AG",
         imageUrl: "/images/corvette_c7.png",
         videoUrl: "/videos/corvette_c7.mp4",
         photoUrls: [
@@ -52,7 +50,6 @@ export const cars: CarType[] = [
         acceleration: 3.7,
         horsepower: 455,
         dealer: "Honda Motor Company, Ltd.",
-        componentPath: "src/components/cars/models/honda.jsx",
         imageUrl: "/images/corvette_c7.png",
         videoUrl: "/videos/corvette_c7.mp4",
         photoUrls: [

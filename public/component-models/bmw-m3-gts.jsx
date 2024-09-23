@@ -10,7 +10,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export default function Bmw(props) {
-    const { nodes, materials } = useGLTF('/models/2010_bmw_m3_gts.glb')
+    const { nodes, materials } = useGLTF('raw-models/2010_bmw_m3_gts.glb')
     return (
       <group {...props} dispose={null}>
         <mesh
@@ -149,4 +149,4 @@ export default function Bmw(props) {
     )
   }
   
-  useGLTF.preload('/models/2010_bmw_m3_gts.glb')
+  useGLTF.preload('raw-models/2010_bmw_m3_gts.glb')

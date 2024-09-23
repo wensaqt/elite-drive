@@ -6,7 +6,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export default function Honda(props) {
-  const { nodes, materials } = useGLTF('/models/honda_jdm.glb')
+  const { nodes, materials } = useGLTF('raw-models/honda_jdm.glb')
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -157,4 +157,4 @@ export default function Honda(props) {
   )
 }
 
-useGLTF.preload('/models/honda_jdm.glb')
+useGLTF.preload('raw-models/honda_jdm.glb')

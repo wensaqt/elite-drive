@@ -6,7 +6,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export default function BugattiVeyron(props) {
-  const { nodes, materials } = useGLTF('/models/2009_bugatti_veyron_16.4.glb')
+  const { nodes, materials } = useGLTF('raw-models/2009_bugatti_veyron_16.4.glb')
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -73,4 +73,4 @@ export default function BugattiVeyron(props) {
   )
 }
 
-useGLTF.preload('/models/2009_bugatti_veyron_16.4.glb')
+useGLTF.preload('raw-models/2009_bugatti_veyron_16.4.glb')

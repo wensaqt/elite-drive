@@ -4,7 +4,7 @@ import Divider from "@/components/ui/divider";
 import ScrollIndicator from "@/components/base/scroll-indicator";
 
 import CarFormation from "@/components/cars/car-formation";
-import CarFormation3D from "@/components/cars/car-formation-3d";
+import CarFormation3D from "@/components/cars/car-formation/car-formation-3d";
 import { useState } from "react";
 
 const StorePage = () => {

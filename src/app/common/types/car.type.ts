@@ -8,7 +8,6 @@ export type CarType = {
     horsepower: number;
     dealer: string;
     imageUrl: string;
-    componentPath: string;
     videoUrl: string;
     photoUrls: string[];
     description: string;
