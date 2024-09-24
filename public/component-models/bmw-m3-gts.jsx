@@ -10,9 +10,10 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export default function Bmw(props) {
+  const carRef = useRef()
     const { nodes, materials } = useGLTF('raw-models/2010_bmw_m3_gts.glb')
     return (
-      <group {...props} dispose={null}>
+      <group {...props} dispose={null} ref={carRef}>
         <mesh
           castShadow
           receiveShadow
