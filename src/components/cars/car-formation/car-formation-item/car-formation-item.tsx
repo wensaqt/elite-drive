@@ -3,6 +3,7 @@ import { Billboard, Text } from "@react-three/drei"
 import dynamic from "next/dynamic"
 import { forwardRef, Suspense } from "react"
 import * as THREE from "three"
+import { a } from '@react-spring/three'
 
 const CarFormation3DItem = forwardRef<THREE.Group, { car: CarType; position: THREE.Vector3; rotation: THREE.Euler }>(
     ({ car, position, rotation }, ref) => {
@@ -42,10 +43,10 @@ const CarFormation3DItem = forwardRef<THREE.Group, { car: CarType; position: THR
   
       return (
         <Suspense fallback={null}>
-          <group position={position} ref={ref}>
+          <a.group position={position} ref={ref}>
             <CarHeader car={car} />
             <CarModel rotation={rotation} />
-          </group>
+          </a.group>
         </Suspense>
       );
     }
