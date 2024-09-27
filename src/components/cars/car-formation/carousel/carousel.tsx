@@ -20,8 +20,8 @@ const Carousel = () => {
 		<a.group
 			{...bind()}
 			ref={carouselRef}
-			// @ts-expect-error: wtf is this type i cant fix it so ff
-			rotation={carouselRotation.to((y) => [0, y as number, 0])}
+			// @ts-expect-error: did exactly like documentation, still getting a type error
+			rotation={carouselRotation.to((y) => [0, y, 0])}
 		>
 			{cars.map((car, index) => {
 				const position = setCarPosition(index);

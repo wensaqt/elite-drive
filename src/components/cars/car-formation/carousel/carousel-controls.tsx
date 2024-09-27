@@ -16,7 +16,7 @@ const useCarouselControls = () => {
 	}));
 
 	const getAngle = (index: number) => {
-		return (index / totalCars) * 2 * Math.PI;
+		return index * step;
 	};
 
 	const getNextStep = (currentRotation: number) => {
