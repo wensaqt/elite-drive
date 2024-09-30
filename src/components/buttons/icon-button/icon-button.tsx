@@ -4,20 +4,37 @@ import Link from "next/link";
 import React, { ReactElement } from "react";
 
 export default function IconButton({
-    icon,
-    href,
+	icon,
+	href,
+	onClick,
+	className,
 }: {
-    icon: ReactElement<LucideProps>;
-    href: string;
+	icon: ReactElement<LucideProps>;
+	href?: string;
+	onClick?: () => void;
+	className: string;
 }) {
-    return (
-        <Button
-            className="hover:text-zinc-900 hover:bg-zinc-700"
-            variant="ghost"
-            size="icon"
-            asChild
-        >
-            <Link href={href}>{icon && React.cloneElement(icon)}</Link>
-        </Button>
-    );
+	if (href)
+		return (
+			<Button
+				className={`hover:text-zinc-900 hover:bg-zinc-700 ${className}`}
+				variant="ghost"
+				size="icon"
+				asChild
+				onClick={onClick}
+			>
+				<Link href={href}>{icon && React.cloneElement(icon)}</Link>
+			</Button>
+		);
+
+	return (
+		<Button
+			className={`hover:text-zinc-900 hover:bg-zinc-700 ${className}`}
+			variant="ghost"
+			size="icon"
+			onClick={onClick}
+		>
+			{icon && React.cloneElement(icon)}
+		</Button>
+	);
 }

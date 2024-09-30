@@ -3,6 +3,7 @@ import { useSpring } from "@react-spring/three";
 import { useDrag } from "@use-gesture/react";
 import { useRef } from "react";
 import * as THREE from "three";
+import useCars from "../../cars";
 
 const useCarouselControls = () => {
 	const totalCars = cars.length;
@@ -10,6 +11,7 @@ const useCarouselControls = () => {
 	const carouselRef = useRef<THREE.Group>(null);
 	const deflection = 0.5;
 	const step = (2 * Math.PI) / totalCars;
+	const { setHighlighedCarIndex } = useCars();
 
 	const [{ carouselRotation }, api] = useSpring(() => ({
 		carouselRotation: 0,
@@ -43,10 +45,20 @@ const useCarouselControls = () => {
 		let newRotation = memo + mx * 0.005;
 		if (last) {
 			const nextStep = getNextStep(newRotation);
+			const closestCarIndex = getClosestCarIndex(nextStep);
+			setHighlighedCarIndex(closestCarIndex);
 			newRotation = nextStep;
 		}
 
 		return newRotation;
+	};
+
+	const getClosestCarIndex = (rotation: number) => {
+		const normalizedRotation =
+			((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+		const carIndex = Math.floor(normalizedRotation / step) % totalCars;
+
+		return carIndex;
 	};
 
 	const bind = useDrag(
@@ -58,6 +70,10 @@ const useCarouselControls = () => {
 					friction: 50,
 				},
 			});
+		},
+		{
+			filterTaps: true,
+			tapsThreshold: 3,
 		}
 	);
 

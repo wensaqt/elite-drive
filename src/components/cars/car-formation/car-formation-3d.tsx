@@ -3,7 +3,6 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
 import Carousel from "./carousel/carousel";
-import { OrbitControls } from "@react-three/drei";
 
 const CarFormation3D: React.FC = () => {
 	return (

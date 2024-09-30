@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { forwardRef, Suspense, useRef } from "react";
 import * as THREE from "three";
 import { a, useSpring } from "@react-spring/three";
+import { useRouter } from "next/navigation";
 
 const CarFormation3DItem = forwardRef<
 	THREE.Group,
@@ -14,6 +15,7 @@ const CarFormation3DItem = forwardRef<
 		highlighted: boolean;
 	}
 >(({ car, position, rotation, highlighted = true }, ref) => {
+	const router = useRouter();
 	const getCarComponent = () => {
 		const formattedName = car.model.toLowerCase().replace(/\s+/g, "-");
 		return import(`public/component-models/${formattedName}.jsx`).then(

@@ -4,7 +4,6 @@ import CarFormation3DItem from "../car-formation-item/car-formation-item";
 import useCarouselControls from "./carousel-controls";
 import { a } from "@react-spring/three";
 import CarouselGround from "./carousel-ground";
-import { useThree } from "@react-three/fiber";
 
 const Carousel = () => {
 	const {
@@ -25,7 +24,7 @@ const Carousel = () => {
 		>
 			{cars.map((car, index) => {
 				const position = setCarPosition(index);
-				const rotation = setCarRotation(index);
+					const rotation = setCarRotation(index);
 				return (
 					<CarFormation3DItem
 						key={index}
