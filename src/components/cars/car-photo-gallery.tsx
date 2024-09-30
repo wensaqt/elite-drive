@@ -20,6 +20,7 @@ const CarPhotoGallery = ({
         setSelectedPhoto(null);
     };
 
+
     return (
         <div className="grid lg:grid-cols-4 lg:grid-rows-2 gap-4 h-96 w-full grid-cols-3 grid-rows-2">
             <div className="lg:col-span-2 lg:row-span-2 col-span-3 row-span-1">
