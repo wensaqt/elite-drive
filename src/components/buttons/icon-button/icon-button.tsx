@@ -12,7 +12,7 @@ export default function IconButton({
 	icon: ReactElement<LucideProps>;
 	href?: string;
 	onClick?: () => void;
-	className: string;
+	className?: string;
 }) {
 	if (href)
 		return (
