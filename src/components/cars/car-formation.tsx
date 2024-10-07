@@ -2,8 +2,7 @@
 import { CarType } from "@/app/common/types/car.type";
 import Image from "next/image";
 import React from "react";
-import TypographyH3 from "../typography/h3";
-import TypographyMuted from "../typography/muted";
+
 import Link from "next/link";
 import { cars } from "@/_test-data/cars";
 import { useSpring, animated } from "@react-spring/web";
@@ -28,8 +27,6 @@ const CarFormation = () => {
 		if (last) {
 			return Math.max(Math.min(newOffset, maxOffset), minOffset);
 		}
-
-		console.log("new offset: ", newOffset);
 		return newOffset;
 	};
 
